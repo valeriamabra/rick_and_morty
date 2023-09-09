@@ -1,0 +1,11 @@
+.app {
+   text-align: center;
+   background-color: transparent;
+   color: white;
+}
+
+html {
+   background: url('assets/background.jpeg');
+   background-size: cover;
+   background-repeat: no-repeat;
+ }
