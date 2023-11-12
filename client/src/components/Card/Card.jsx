@@ -27,13 +27,15 @@ export default function Card(props) {
       dispatch(addFav(props));
     }
   };
+
+  const handleOnClose = () => {
+    handleFavorite();
+    props.onClose(props.id);
+  };
   return (
     <div className={styles.container} key={props.id}>
       <div className={styles.botonContainer}>
-        <button
-          className={styles.boton}
-          onClick={() => props.onClose(props.id)}
-        >
+        <button className={styles.boton} onClick={handleOnClose}>
           X
         </button>
         {isFav ? (

@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import styles from "./App.module.css";
-import Cards from "./components/Cards/Cards.jsx";
-//import SearchBar from './components/SearchBar.jsx';
-//import characters from "./data.js";
+import Cards from "./components/Cards/Cards";
 import Nav from "./components/Nav/Nav";
 import Form from "./components/Form/Form";
 import { Route, Routes } from "react-router-dom";
@@ -41,7 +39,7 @@ function App() {
   const { pathname } = useLocation();
 
   function onSearch(id) {
-    axios(`https://rickandmortyapi.com/api/character/${id}`).then(
+    axios(`http://localhost:3001/rickandmorty/character/${id}`).then(
       ({ data }) => {
         if (data.name) {
           setCharacters((oldChars) => [...oldChars, data]);
@@ -76,7 +74,7 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/favorites" element={<Favorites onClose={onClose} />} />
       </Routes>
     </div>
   );

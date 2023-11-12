@@ -10,7 +10,7 @@ import {
 } from "../../redux/actions/action";
 import { useState } from "react";
 
-const Favorites = () => {
+const Favorites = ({ onClose }) => {
   const myFavorites = useSelector((state) => state.myFavorites);
 
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ const Favorites = () => {
               gender={item.gender}
               origin={item.origin.name}
               image={item.image}
+              onClose={onClose}
             />
           );
         })}
