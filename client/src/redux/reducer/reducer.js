@@ -16,23 +16,16 @@ export const rootReducer = (state = initialState, action) => {
     case ADD_FAV:
       return {
         ...state,
-        myFavorites: [...state.myFavorites, action.payload],
-        allCharacters: [...state.allCharacters, action.payload],
+        myFavorites: action.payload,
+        allCharacters: action.payload,
       };
+
     case REMOVE_FAV:
-      return {
-        ...state,
-        myFavorites: state.myFavorites.filter((personaje) => {
-          if (personaje.id == action.payload) {
-            return false;
-          } else {
-            return true;
-          }
-        }),
-      };
+      return { ...state, myFavorites: action.payload };
+
     case REMOVE_FILTER:
       return { ...state, myFavorites: [...state.allCharacters] };
-      break;
+
     case FILTER:
       return {
         ...state,
@@ -45,18 +38,6 @@ export const rootReducer = (state = initialState, action) => {
         }),
       };
     case ORDER:
-      console.log("--------------");
-      console.log(state.allCharacters);
-      console.log(action.payload);
-      console.log(
-        state.allCharacters.sort((a, b) => {
-          if (action.payload === "A") {
-            return a.name > b.name ? 1 : -1;
-          } else {
-            return a.name > b.name ? -1 : 1;
-          }
-        })
-      );
       return {
         ...state,
         myFavorites: state.allCharacters.sort((a, b) => {

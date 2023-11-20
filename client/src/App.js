@@ -20,12 +20,21 @@ function App() {
   const EMAIL = "valee_mabra@hotmail.com";
   const PASSWORD = "123456";
   const navigate = useNavigate();
+  const URL = "http://localhost:3001/rickandmorty/";
 
-  const login = (userData) => {
-    if (userData.password === PASSWORD && userData.email === EMAIL) {
-      setAccess(true);
-      navigate("/home");
-    } else alert("el nombre de usuario o la constraseña son incorrectas");
+  const login = ({ email, password }) => {
+    axios(`${URL}login?email=${email}&password=${password}`).then(
+      ({ data }) => {
+        const { access } = data;
+
+        if (access) {
+          setAccess(access);
+          navigate("/home");
+        } else {
+          alert("el nombre de usuario o la constraseña son incorrectas");
+        }
+      }
+    );
   };
 
   const logOut = () => {
@@ -39,15 +48,13 @@ function App() {
   const { pathname } = useLocation();
 
   function onSearch(id) {
-    axios(`http://localhost:3001/rickandmorty/character/${id}`).then(
-      ({ data }) => {
+    axios(`http://localhost:3001/rickandmorty/character/${id}`)
+      .then(({ data }) => {
         if (data.name) {
           setCharacters((oldChars) => [...oldChars, data]);
-        } else {
-          window.alert("¡No hay personajes con este ID!");
         }
-      }
-    );
+      })
+      .catch(() => window.alert("¡No hay personajes con este ID!"));
   }
 
   const onClose = (id) => {
