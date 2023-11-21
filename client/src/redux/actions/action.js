@@ -18,7 +18,7 @@ export const removeFav = (id) => {
   return (dispatch) => {
     axios.delete(`${URL}/${id}`).then(({ data }) => {
       return dispatch({
-        type: "REMOVE_FAV",
+        type: REMOVE_FAV,
         payload: data,
       });
     });

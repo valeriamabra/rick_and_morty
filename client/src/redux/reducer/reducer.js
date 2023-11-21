@@ -42,12 +42,21 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         myFavorites: state.allCharacters.sort((a, b) => {
           if (action.payload === "A") {
-            return a.name - b.name;
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
           } else if (action.payload === "D") {
-            return b.name - a.name;
-          } else {
-            return 0;
+            if (a.name > b.name) {
+              return -1;
+            }
+            if (a.name < b.name) {
+              return 1;
+            }
           }
+          return 0;
         }),
       };
     default:

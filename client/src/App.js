@@ -17,24 +17,23 @@ function App() {
 
   const [access, setAccess] = React.useState(false);
 
-  const EMAIL = "valee_mabra@hotmail.com";
-  const PASSWORD = "123456";
   const navigate = useNavigate();
   const URL = "http://localhost:3001/rickandmorty/";
 
-  const login = ({ email, password }) => {
-    axios(`${URL}login?email=${email}&password=${password}`).then(
-      ({ data }) => {
-        const { access } = data;
+  const login = async ({ email, password }) => {
+    try {
+      const { data } = await axios(
+        `${URL}login?email=${email}&password=${password}`
+      );
+      const { access } = data;
 
-        if (access) {
-          setAccess(access);
-          navigate("/home");
-        } else {
-          alert("el nombre de usuario o la constraseña son incorrectas");
-        }
+      if (access) {
+        setAccess(access);
+        navigate("/home");
+      } else {
+        alert("el nombre de usuario o la constraseña son incorrectas");
       }
-    );
+    } catch (error) {}
   };
 
   const logOut = () => {
@@ -65,7 +64,6 @@ function App() {
         return true;
       }
     });
-
     setCharacters(arrayFiltrado);
   };
 
