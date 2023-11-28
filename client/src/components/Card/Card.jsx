@@ -11,6 +11,7 @@ export default function Card(props) {
   const myFavorites = useSelector((state) => state.myFavorites);
 
   useEffect(() => {
+    console.log("::: myFavorites", myFavorites);
     myFavorites.forEach((fav) => {
       if (fav.id === props.id) {
         setIsFav(true);
@@ -24,6 +25,7 @@ export default function Card(props) {
       dispatch(removeFav(props.id));
     } else {
       setIsFav(true);
+      console.log("::: addFav", props);
       dispatch(addFav(props));
     }
   };

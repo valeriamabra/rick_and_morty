@@ -14,6 +14,7 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FAV:
+      console.log("::: reducer ADD_FAV", action.payload);
       return {
         ...state,
         myFavorites: action.payload,

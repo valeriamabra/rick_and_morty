@@ -30,10 +30,11 @@ function App() {
       if (access) {
         setAccess(access);
         navigate("/home");
-      } else {
-        alert("el nombre de usuario o la constraseña son incorrectas");
       }
-    } catch (error) {}
+    } catch ({ response }) {
+      const { data } = response;
+      alert(data.message);
+    }
   };
 
   const logOut = () => {
@@ -46,14 +47,20 @@ function App() {
 
   const { pathname } = useLocation();
 
-  function onSearch(id) {
-    axios(`http://localhost:3001/rickandmorty/character/${id}`)
-      .then(({ data }) => {
-        if (data.name) {
-          setCharacters((oldChars) => [...oldChars, data]);
-        }
-      })
-      .catch(() => window.alert("¡No hay personajes con este ID!"));
+  async function onSearch(id) {
+    try {
+      const { data } = await axios(
+        `http://localhost:3001/rickandmorty/character/${id}`
+      );
+      if (data.name) {
+        console.log("::: data", data);
+        setCharacters((oldChars) => [...oldChars, data]);
+      } else {
+        window.alert("Personaje no encontrado");
+      }
+    } catch (error) {
+      alert(error.response.data);
+    }
   }
 
   const onClose = (id) => {
