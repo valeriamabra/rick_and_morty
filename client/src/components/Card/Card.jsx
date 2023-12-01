@@ -11,7 +11,7 @@ export default function Card(props) {
   const myFavorites = useSelector((state) => state.myFavorites);
 
   useEffect(() => {
-    console.log("::: myFavorites", myFavorites);
+    console.log(" myFavorites", myFavorites);
     myFavorites.forEach((fav) => {
       if (fav.id === props.id) {
         setIsFav(true);
@@ -25,7 +25,6 @@ export default function Card(props) {
       dispatch(removeFav(props.id));
     } else {
       setIsFav(true);
-      console.log("::: addFav", props);
       dispatch(addFav(props));
     }
   };
@@ -45,11 +44,14 @@ export default function Card(props) {
         ) : (
           <button onClick={handleFavorite}>🤍</button>
         )}
+        <Link to={`/detail/${props.id}`}>
+          <button>👁️</button>
+        </Link>
       </div>
-      <Link to={`/detail/${props.id}`}>
-        <h2>NOMBRE</h2>
-        <h3 className={styles.cardName}>{props.name}</h3>
-      </Link>
+      <img className={styles.imagen} src={props.image} alt="" />
+
+      <h2>NOMBRE</h2>
+      <h3 className={styles.cardName}>{props.name}</h3>
 
       <h2>ESTADO</h2>
       <h3>{props.status}</h3>
@@ -59,7 +61,6 @@ export default function Card(props) {
 
       <h2>GENERO</h2>
       <h3>{props.gender}</h3>
-      <img className={styles.imagen} src={props.image} alt="" />
     </div>
   );
 }

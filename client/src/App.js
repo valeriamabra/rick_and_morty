@@ -53,7 +53,6 @@ function App() {
         `http://localhost:3001/rickandmorty/character/${id}`
       );
       if (data.name) {
-        console.log("::: data", data);
         setCharacters((oldChars) => [...oldChars, data]);
       } else {
         window.alert("Personaje no encontrado");
@@ -74,10 +73,31 @@ function App() {
     setCharacters(arrayFiltrado);
   };
 
+  function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  const onRandom = async () => {
+    try {
+      const id = random(1, 826);
+      const { data } = await axios(
+        `http://localhost:3001/rickandmorty/character/${id}`
+      );
+      if (data.name) {
+        setCharacters((oldChars) => [...oldChars, data]);
+      } else {
+        window.alert("Personaje no encontrado");
+      }
+    } catch (error) {
+      alert(error.response.data);
+    }
+  };
+
   return (
     <div className={styles.app}>
-      {/* <SearchBar onSearch={(characterID) => window.alert(characterID)} /> */}
-      {pathname !== "/" && <Nav onLogOut={logOut} onSearch={onSearch} />}
+      {pathname !== "/" && (
+        <Nav onLogOut={logOut} onSearch={onSearch} onRandom={onRandom} />
+      )}
       <Routes>
         <Route path="/" element={<Form onLogin={login} />} />
         <Route
